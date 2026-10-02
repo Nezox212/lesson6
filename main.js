@@ -1,92 +1,90 @@
-//Задача 1.1 - Конвертер температуры
-// Создай функцию convertTemperature(celsius, toFahrenheit), которая:
-//
-// Если toFahrenheit = true, переводит Цельсий в Фаренгейт: (C × 9/5) + 32
-// Если toFahrenheit = false, переводит Фаренгейт в Цельсий: (F - 32) × 5/9
-// Протестируй функцию с несколькими значениями
+//1) Создайте массив из 5 чисел.
+const numbers = [-3,10,-23,190,17];
+//- Добавьте число в конец массива.
+numbers.push(18);
+//- Удалите число из начала массива.
+numbers.shift();
+//- Отфильтруйте только чётные числа.
+const filtered = numbers.filter((el) => {
+    return el % 2 === 0;
+});
+console.log(filtered);
+//- Создайте новый массив, где каждое число умножено на 5.
+const mapped = numbers.map((el) => {
+    return el * 5;
+});
+console.log(mapped);
+//- Найдите среднее арифметическое всех чисел.
+const sumOfNumbers = numbers.reduce((prev, el) => {
+    return prev + el;
+},0);
+console.log( " Среднее арифметическое число массива Numbers = "+ sumOfNumbers / numbers.length);
+const sumOfMapped = mapped.reduce((prev, el) => {
+    return prev + el;
+},0);
+console.log( " Среднее арифметическое число массива Mapped = "+ sumOfMapped / numbers.length);
+//- Отсортируйте массив по возрастанию.
+const sortedNumbers = [...numbers].sort((a, b) => {
+    return a - b;
+} );
+console.log(sortedNumbers);
 
-const convertTemperature = (celsius, toFahrenheit) => {
-    if (toFahrenheit === true) {console.log((celsius * 9/5) + 32)}
-    else if(toFahrenheit === false) {console.log((celsius - 32) * 5/9)}
-}
-convertTemperature(10, true)
-convertTemperature(20, true)
-convertTemperature(20, false)
 
-//Задача 1.2 - Проверка пароля
-// Напиши функцию validatePassword(password), которая:
-//
-// Проверяет, что пароль длиннее 8 символов
-// Содержит хотя бы одну букву
-// Содержит хотя бы одну цифру
-// Возвращает true если все условия выполнены, иначе false
-const validatePassword = (password) => {
-    const hasDigits = /\d/.test(password);
-    const hasLower = /[a-z]/.test(password);
-    if (password.length > 8 && hasLower && hasDigits) return true
-    else return false
-}
-validatePassword("1adfasddas")
 
-//Задача 1.3 - Калькулятор с операциями
-// Создай функцию calculate(a, b, operation), где operation это строка ("+", "-", "*", "/").
-// Функция должна выполнить операцию и вернуть результат. Протестируй с разными операциями.
-//
-const calculate = (a, b, operation) => {
-    if (operation === "+") return a + b;
-    else if (operation === "-") return a - b;
-    else if (operation === "*") return a * b;
-    else if (operation === "/") return a / b;
-    else return  false
-}
-console.log(calculate(30, 7, "+"))
-console.log(calculate(13, 3, "-"))
-console.log(calculate(2, 2, "/"))
-console.log(calculate(3, 9, "*"))
-console.log(calculate(4, 2, "1"))
+//2) Создайте массив из 10 знаменитостей (объектов). У каждой знаменитости должны быть ключи name,
+// age, role (роль знаменитости, например “singer” если это Майкл Джексон). Знаменитостей подберите
+// на своё усмотрение и выполните с массивом текущие действия:
 
-//DOM
-// Задача 2 - Интерактивный калькулятор
-// Создай HTML страницу с:
-//
-// Двумя полями ввода для чисел (id="num1", id="num2")
-// Четырьмя кнопками для операций (+, -, ×, ÷) с классом "operation-btn"
-// Элементом для результата (id="result")
-//
-//
-//
-// JavaScript код должен:
-//
-// При клике на кнопку операции вычислить результат
-// Вывести результат в div
-// Обработать деление на ноль
-// ( Можно использовать функцию с задачи 1.3 )
-const inputElement1 = document.querySelector("#num1");
-const inputElement2 = document.querySelector("#num2");
-const btnElement = document.querySelectorAll(".operation-btn");
-const resultButton = document.querySelector("#result");
-const resultTextElement = document.querySelector("#resultText");
+const favorites = [
+    {
+        name: "Роналду", age: 40, role:"footballPlayer"},
+    {
+        name: "Майкл Джексон", age: 30, role:"singer"},
+    {
+        name:"Кристофер Нолан", age:56, role:"screenwriter"},
+    {
+        name: "Джастин Стейджи", age:38, role:"fighter"},
+    {
+        name: "Ислам Махачев", age: 34, role:"fighter"},
+    {
+        name:"Чарльз Оливейра", age:36 , role:"fighter"},
+     {
+        name:"Пушкин", age:33, role:"writer"},
+    {
+        name:"Макс Холловей", age:34, role:"fighter"},
+    {
+        name:"Илия Топурия", age:29, role:"fighter"},
+    {
+        name:"Джимми Дональдсон", age:28, role:"YouTuber"}]
 
-let selectedOperation = ""
-const calculator = (a, b, operation) => {
-    if (operation === "+") return a + b;
-    else if (operation === "-") return a - b;
-    else if (operation === "*") return a * b;
-    else if (operation === "/" && b !== 0) return a / b;
-    else if (operation === "/") {
-        if (b === 0) return "нельзя делить на 0";
-        return a / b;
-    }
-    else return"выберете операцию"
+//- Выведите массив, состоящий только из имён знаменитостей.
+const mappedName = favorites.map((el) => {
+    return el.name
 
-}
-for (let button of btnElement) {
-    button.addEventListener("click", () => {
-        selectedOperation = button.textContent;
-    })
-}
-resultButton.addEventListener("click", () => {
-    const a = +inputElement1.value;
-    const b = +inputElement2.value;
-    resultTextElement.textContent = calculator(a, b, selectedOperation);
-})
+});
+
+console.log(mappedName);
+
+//- Создайте массив строк в формате: "Michael Jackson is a singer".
+const mappedRole = favorites.map((el) => {
+    return `${el.name} is a ${el.role}`;
+});
+
+console.log(mappedRole);
+//- Найдите самого старшего и самого младшего знаменитостей и вычислите разницу в возрасте между ними.
+
+const min = [...favorites].sort((a, b) => a.age - b.age);
+const max = [...favorites].sort((a, b) => b.age - a.age);
+console.log(max[0].name + " " + max[0].age +" - " + min[0].name + " " + min[0].age + " = " + (max[0].age - min[0].age) + " лет разница");
+
+//- Проверьте есть ли среди них несовершеннолетний.
+const ageSome = favorites.some((el) => {
+    return el.age < 18;
+});
+console.log(ageSome);
+
+//- Выведите знаменитостей которым больше 20.
+const ageFilter = favorites.filter((el) => {
+    return  el.age > 20
+});
+console.log(ageFilter);
